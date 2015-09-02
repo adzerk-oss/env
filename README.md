@@ -1,5 +1,5 @@
 # env
-Clojure environment configuration library.
+Clojure / ClojureScript environment configuration library.
 
 [](dependency)
 ```clojure
