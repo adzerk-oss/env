@@ -43,7 +43,7 @@
   (:require-macros [adzerk.env :as env]))
 ```
 
-#### Get
+### Get
 
 ```clojure
 ;; both clojure and clojurescript
@@ -52,16 +52,15 @@
 
 - This defines the vars `FOO`, `BAR`, and `BAZ`
 - The values are set to:
-  - the system property of the same name, or
+  - the system property of the same name if it is set, or
   - the environment variable of the same name otherwise
-- The `^:required` metadata will trigger an exception if no system property
-  or environment variable can be found with that name.
+- Add `^:required` meta to throw an exception if no value is set
 
-#### Set
+### Set
 
 ```clojure
 ;; clojure only
 (alter-var-root #'FOO (constantly "new value"))
 ```
 
-The underlying system property will be updated as well as the var itself.
+- The underlying system property will be updated as well as the var itself.
