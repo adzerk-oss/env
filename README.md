@@ -3,8 +3,9 @@ Clojure environment configuration library.
 
 [](dependency)
 ```clojure
-[adzerk/boot-cljs "1.7.48-2"] ;; latest release
+[adzerk/env "0.1.0"] ;; latest release
 ```
+[](/dependency)
 
 #### Setup
 
@@ -25,13 +26,12 @@ Clojure environment configuration library.
 (env/def FOO, ^:required BAR, BAZ)
 ```
 
-This defines the vars `#'foo/FOO`, `#'foo/BAR`, etc. with values obtained from:
-
-- System property `"FOO"` etc., or
-- Environment variable `FOO` etc., otherwise.
-
-The `^:required` metadata on the var instructs env to throw an exception if
-neither the system property nor the environment variable is set.
+- This defines the vars `FOO`, `BAR`, and `BAZ`
+- The values are set to:
+  - the system property of the same name, or
+  - the environment variable of the same name otherwise
+- The `^:required` metadata will trigger an exception if no system property
+  or environment variable can be found with that name.
 
 #### Set
 
