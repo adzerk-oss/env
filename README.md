@@ -1,11 +1,7 @@
 # env
 Clojure / ClojureScript environment configuration library.
 
-[](dependency)
-```clojure
-[adzerk/env "0.1.0"] ;; latest release
-```
-[](/dependency)
+## Overview
 
 > The twelve-factor app stores config in environment variables (often
 > shortened to env vars or env). Env vars are easy to change between
@@ -32,7 +28,13 @@ Clojure / ClojureScript environment configuration library.
 >
 > &mdash; [The Twelve-Factor App](http://12factor.net/config)
 
-#### Setup
+## Usage
+
+[](dependency)
+```clojure
+[adzerk/env "0.1.0"] ;; latest release
+```
+[](/dependency)
 
 ```clojure
 ;; clojure
