@@ -6,43 +6,37 @@ Clojure environment configuration library.
 [adzerk/boot-cljs "1.7.48-2"] ;; latest release
 ```
 
-### Setup
-
-Clojure:
+#### Setup
 
 ```clojure
+;; clojure
 (ns foo
   (:require [adzerk.env :as env]))
-```
 
-ClojureScript:
-
-```clojure
+;; clojurescript
 (ns foo
   (:require-macros [adzerk.env :as env]))
 ```
 
-### Get Environment Vars
-
-Clojure and ClojureScript:
+#### Get
 
 ```clojure
+;; both clojure and clojurescript
 (env/def FOO, ^:required BAR, BAZ)
 ```
 
 This defines the vars `#'foo/FOO`, `#'foo/BAR`, etc. with values obtained from:
 
 - System property `"FOO"` etc., or
-- Environment variable `FOO` otherwise.
+- Environment variable `FOO` etc., otherwise.
 
 The `^:required` metadata on the var instructs env to throw an exception if
 neither the system property nor the environment variable is set.
 
-### Set Environment Vars
-
-Clojure only:
+#### Set
 
 ```clojure
+;; clojure only
 (alter-var-root #'FOO (constantly "new value"))
 ```
 
