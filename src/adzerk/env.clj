@@ -1,8 +1,8 @@
 (ns adzerk.env
-  (:refer-clojure :exclude [get set update def]))
+  (:refer-clojure :exclude [get set]))
 
-(defn- set   [k v] (System/setProperty k v))
-(defn- get   [k]   (or (System/getProperty k) (System/getenv k)))
+(defn- set [k v] (System/setProperty k v))
+(defn- get [k]   (or (System/getProperty k) (System/getenv k)))
 
 (defmacro def [& ks]
   `(do ~@(for [k ks]
