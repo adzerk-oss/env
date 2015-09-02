@@ -1,7 +1,4 @@
 # env
-Clojure / ClojureScript environment configuration library.
-
-## Overview
 
 > The twelve-factor app stores config in environment variables (often
 > shortened to env vars or env). Env vars are easy to change between
