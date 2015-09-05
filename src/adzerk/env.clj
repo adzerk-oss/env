@@ -1,5 +1,4 @@
-(ns adzerk.env
-  (:require [clojure.string :refer [join]]))
+(ns adzerk.env)
 
 (defmacro def [& ks]
   (let [cljs? (:js-globals &env)]

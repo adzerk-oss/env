@@ -25,6 +25,22 @@
 >
 > &mdash; [The Twelve-Factor App](http://12factor.net/config)
 
+This library is a thin wrapper around the JVM's environment variables and
+system properties, in the spirit of the Twelve-Factor App philosophy.
+
+Supported:
+
+- get value of env var from environment
+- override value of env var globally, for entire jvm
+- throw exception if required env var is not set
+
+Not supported:
+
+- env as a map (see grouping, above)
+- configuration files (see config files, above)
+- keywordized names (not portable across classloaders)
+- non-string values (not portable across classloaders)
+
 ## Usage
 
 [](dependency)
@@ -64,3 +80,4 @@
 ```
 
 - The underlying system property will be updated as well as the var itself.
+- Subsequent calls to `env/def` will reflect the updated value.
