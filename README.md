@@ -29,7 +29,7 @@
 
 [](dependency)
 ```clojure
-[adzerk/env "0.1.1"] ;; latest release
+[adzerk/env "0.1.2"] ;; latest release
 ```
 [](/dependency)
 
