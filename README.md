@@ -56,7 +56,7 @@ classloader isolation mechanism in use.
 So, we can compile a list of requirements:
 
 - Obtain a map of environment variable names and values (both strings)
-  from the global environment.
+  from the global env.
 - Set or override environment variables such that the new values are
   in effect for the whole JVM.
 - Usable in both Clojure and ClojureScript programs.
@@ -112,8 +112,8 @@ and some features we _don't_ want:
 - The righthand side provides default values and can be:
   - `:required` (throw an exception), or
   - an expression that evaluates to a string or `nil`.
-- If a default is applied it is persisted in the env such that subsequent
-  calls to `env/def` or `env/env` reflect the updated value.
+- If a default is applied it is persisted in the env
+  - subsequent calls to `env/def` or `env/env` reflect the updated value.
 
 > **Note:** Setting or overriding env vars is not currently supported
 > in the ClojureScript implementation. The env is read-only there and
@@ -135,3 +135,25 @@ and some features we _don't_ want:
 
 - The underlying system property will be updated as well as the var itself.
 - Subsequent calls to `env/def` and `env/env` will reflect the updated value.
+
+## Hacking
+
+```
+# build and install locally
+boot build-jar
+```
+```
+# push snapshot
+boot build-jar push-snapshot
+```
+```
+# push release
+boot build-jar push-release
+```
+
+## License
+
+Copyright © 2014 Adzerk
+
+Distributed under the Eclipse Public License either version 1.0 or (at
+your option) any later version.
