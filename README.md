@@ -28,24 +28,59 @@
 This library is a thin wrapper around the JVM's environment variables and
 system properties, in the spirit of the Twelve-Factor App philosophy.
 
-Supported:
+## Motivation
 
-- get value of env var from environment
-- override value of env var globally, for entire jvm
-- throw exception if required env var is not set
+Very small applications are self-contained. They start with a clean
+slate, live in a single classloader, and have no persistent mutable
+state. These kinds of programs can be configured simply via command
+line arguments or by pulling env vars into a Clojure var and passed
+to individual components of the application as function parameters.
 
-Not supported:
+When the application gets more complex it might be running in multiple
+Clojure runtimes across multiple machines and performing side effects
+on external resources like databases, message queues, caches, etc.
+Furthermore, users inevitably interact with the application via a web
+application frontend that needs to perform side effects on the backend
+application. These external linkages all need to be configured in the
+environment in which the applications are built and deployed.
 
-- env as a map (see grouping, above)
+Finally, complex applications need to be able to bootstrap themselves.
+That is to say, the program needs to coordinate the bootstrapping of
+its various components when it starts up. This generally takes the
+form of the application entry point _setting_ environment vars that
+the rest of the application components will use to configure themselves.
+Clojure vars are not the answer here because they cannot be accessed
+from different Clojure runtimes in the same JVM, and so defeat any
+classloader isolation mechanism in use.
+
+So, we can compile a list of requirements:
+
+- Obtain a map of environment variable names and values (both strings)
+  from the global environment.
+- Set or override environment variables such that the new values are
+  in effect for the whole JVM.
+- Usable in both Clojure and ClojureScript programs.
+
+and some additional features that might be nice to have:
+
+- Define Clojure vars with values from the environment:
+  - optionally assign default values for missing env vars, and
+  - persist defaults to the JVM global env.
+- Optionally throw exception when required env vars are missing
+  - with a nice, descriptive error message,
+  - at runtime in Clojure, and
+  - at compile time in ClojureScript.
+
+and some features we _don't_ want:
+
 - configuration files (see config files, above)
-- keywordized names (not portable across classloaders)
-- non-string values (not portable across classloaders)
+- non-string names or values (not portable across classloaders)
 
 ## Usage
 
 [](dependency)
 ```clojure
-[adzerk/env "0.1.2"] ;; latest release
+[adzerk/env "0.2.0"] ;; latest release
 ```
 [](/dependency)
 
@@ -63,14 +98,33 @@ Not supported:
 
 ```clojure
 ;; both clojure and clojurescript
-(env/def FOO, ^:required BAR, BAZ)
+(env/def
+  FOO nil
+  BAR :required
+  BAZ "supergood"
+  BAF (or BAZ "justokay"))
 ```
 
-- This defines the vars `FOO`, `BAR`, and `BAZ`
+- This defines the vars `FOO`, `BAR`, `BAZ` and `BAF`
 - The values are set to:
   - the system property of the same name if it is set, or
   - the environment variable of the same name otherwise
-- Add `^:required` meta to throw an exception if no value is set
+- The righthand side provides default values and can be:
+  - `:required` (throw an exception), or
+  - an expression that evaluates to a string or `nil`.
+- If a default is applied it is persisted in the env such that subsequent
+  calls to `env/def` or `env/env` reflect the updated value.
+
+> **Note:** Setting or overriding env vars is not currently supported
+> in the ClojureScript implementation. The env is read-only there and
+> default or overridden values are not persisted in the env.
+
+```clojure
+;; both clojure and clojurescript
+(env/env)
+```
+
+- Returns a map of all env vars, with system property overrides as above.
 
 ### Set
 
@@ -80,4 +134,4 @@ Not supported:
 ```
 
 - The underlying system property will be updated as well as the var itself.
-- Subsequent calls to `env/def` will reflect the updated value.
+- Subsequent calls to `env/def` and `env/env` will reflect the updated value.
