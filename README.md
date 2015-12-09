@@ -120,7 +120,7 @@ and some features we _don't_ want:
 > default or overridden values are not persisted in the env.
 
 ```clojure
-;; both clojure and clojurescript
+;; clojure only (see https://github.com/adzerk-oss/env/issues/1)
 (env/env)
 ```
 
