@@ -1,8 +1,11 @@
 (ns adzerk.env)
 
 (defmacro env []
-  (->> (merge {} (System/getenv) (System/getProperties))
-       (reduce #(into %1 (when-not (re-find #"\." (first %2)) [%2])) {})))
+  (if (:js-globals &env)
+    (throw (IllegalStateException.
+             "macro not available in CLJS: see https://github.com/adzerk-oss/env/issues/1"))
+    (->> (merge {} (System/getenv) (System/getProperties))
+         (reduce #(into %1 (when-not (re-find #"\." (first %2)) [%2])) {}))))
 
 (defn- setenv [k v]
   (when v (assert (string? v)) (System/setProperty k v) v))
