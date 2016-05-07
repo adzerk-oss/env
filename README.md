@@ -106,7 +106,7 @@ and some features we _don't_ want:
 ```
 
 - This defines the vars `FOO`, `BAR`, `BAZ` and `BAF`
-- The values are set to:
+- The values are read from:
   - the system property of the same name if it is set, or
   - the environment variable of the same name otherwise
 - The righthand side provides default values and can be:
