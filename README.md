@@ -80,7 +80,7 @@ and some features we _don't_ want:
 
 [](dependency)
 ```clojure
-[adzerk/env "0.3.0"] ;; latest release
+[adzerk/env "0.3.1"] ;; latest release
 ```
 [](/dependency)
 
