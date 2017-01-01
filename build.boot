@@ -1,13 +1,12 @@
 (set-env!
   :resource-paths #{"src"}
   :dependencies   '[[org.clojure/clojure "1.7.0"  :scope "provided"]
-                    [adzerk/bootlaces    "0.1.10" :scope "test"]])
+                    [adzerk/bootlaces    "0.1.13" :scope "test"]])
 
 (require
-  '[clojure.java.io :as io]
   '[adzerk.bootlaces :refer :all])
 
-(def +version+ "0.3.1")
+(def +version+ "0.4.0")
 
 (bootlaces! +version+)
 

@@ -7,7 +7,7 @@
     (->> (merge {} (System/getenv) (System/getProperties))
          (reduce #(into %1 (when-not (re-find #"\." (first %2)) [%2])) {}))))
 
-(defn- setenv [k v]
+(defn setenv [k v]
   (when v (assert (string? v)) (System/setProperty k v) v))
 
 (defmacro def [& ks]
