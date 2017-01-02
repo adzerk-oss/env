@@ -13,6 +13,6 @@
       (if-not (.exists env-file)
         (util/fail "env: file \"%s\" doesn't exist\n" file)
         (with-open [rdr (io/reader file)]
-          (util/info "env: loading \"%s\"\n" file)
+          (util/info "Loading \"%s\"...\n" file)
           (doseq [[k v] (doto (java.util.Properties.) (.load rdr))]
-            (env/setenv k v)))))))
+            (#'env/setenv k v)))))))
